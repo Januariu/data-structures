@@ -30,6 +30,7 @@ int main(void){
         }
         arr[degree]=coefficient;
     }
+    
     // Input x0
     printf("input x0(between %d and %d):", INT_MIN, INT_MAX);
     long long x0;
@@ -38,11 +39,14 @@ int main(void){
         printf("Error: Input value %lld is out of int range.\n",x0);
         return -1;
     }
+
     // Calculate polynomial value using Horner's method
     double result=0;
     for(int i=n;i>=0;i--){
         result = result * x0 + arr[i];
     }
+    
+    //output result
     printf("P(%lld) = %lf\n", x0, result);
     return 0;
 }
