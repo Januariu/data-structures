@@ -3,6 +3,7 @@
         "*.c": "c",
         "iostream": "cpp",
         "limits.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "list.h": "c"
     }
 }

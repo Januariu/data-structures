@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                    "${workspaceFolder}/**",
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/../**",
+                    "/Users/thn/Desktop/c/data structures/experiment/experiment3/question1/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-x64"
+        }
+    ],
+    "version": 4
+}

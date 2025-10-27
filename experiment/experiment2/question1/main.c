@@ -148,9 +148,43 @@ void mul_poly(polyptr poly1, polyptr poly2, polyptr result){
 }
 
 void div_poly(polyptr poly1, polyptr poly2, polyptr quotient, polyptr remainder){
-    // Polynomial division: poly1 / poly2 = quotient + remainder
-    // Not implemented in this snippet
+    // Polynomial division: poly1 / poly2 = quotient ... remainder
+    int n1 = poly1->next->exp, n2 = poly2->next->exp;
+    polyptr temp1 = poly1->next;
+    polyptr temp2 = poly2->next;
+    double poly1_coef[n1 + 1];
+    double poly2_coef[n2 + 1];
 
+    for(int i = 0; i <= n1; i++) poly1_coef[i] = 0;
+    for(int i = 0; i <= n2; i++) poly2_coef[i] = 0;
+    while(temp1 != NULL){
+        poly1_coef[temp1->exp] = temp1->coef;
+        temp1 = temp1->next;
+    }
+    while(temp2 != NULL){
+        poly2_coef[temp2->exp] = temp2->coef;
+        temp2 = temp2->next;
+    }
+
+    int deg_q = n1 - n2;
+    double coef_q[deg_q + 1];
+    for(int i = 0; i <= deg_q; i++) coef_q[i] = 0;
+    for(int i = deg_q; i >= 0; i--){
+        coef_q[i] = poly1_coef[i + n2] / poly2_coef[n2];
+        for(int j = 0; j <= n2; j++){
+            poly1_coef[i + j] -= coef_q[i] * poly2_coef[j];
+        }
+    }
+
+    for(int i = deg_q; i >= 0; i--){
+        if(coef_q[i] != 0)
+            insert_term(quotient, i, coef_q[i]);
+    }
+
+    for(int i = n2 - 1; i >= 0; i--){
+        if(poly1_coef[i] != 0)
+            insert_term(remainder, i, poly1_coef[i]);
+    }
 }
 
 void create_poly(polyptr head){
@@ -167,56 +201,5 @@ void create_poly(polyptr head){
         insert_term(head, exp, coef);
         print_poly(head);
         printf("\n");
-    }
-}
-
-int main(){
-    polyptr poly1 = init_poly();
-    polyptr poly2 = init_poly();
-    polyptr result = init_poly();
-    while(1){
-        printf("1. Insert term to polynomial 1\n");
-        printf("2. Insert term to polynomial 2\n");
-        printf("3. Print polynomial 1\n");
-        printf("4. Print polynomial 2\n");
-        printf("5. Add polynomials\n");
-        printf("6. Subtract polynomials\n");
-        printf("7. Multiply polynomials\n");
-        printf("8. Exit\n");
-        int choice;
-        scanf("%d", &choice);
-        if(choice == 8) break;
-        if(choice == 1){
-            create_poly(poly1);
-        } else if(choice == 2){
-            create_poly(poly2);
-        } else if(choice == 3){
-            print_poly(poly1);
-            printf("\n");
-        } else if(choice == 4){
-            print_poly(poly2);
-            printf("\n");
-        } else if(choice == 5){
-            free_poly(result);
-            result = init_poly();
-            add_poly(poly1, poly2, result);
-            print_poly(result);
-            printf("\n");
-        } else if(choice == 6){
-            free_poly(result);
-            result = init_poly();
-            sub_poly(poly1, poly2, result);
-            print_poly(result);
-            printf("\n");
-        } else if(choice == 7){
-            free_poly(result);
-            result = init_poly();
-            mul_poly(poly1, poly2, result);
-            print_poly(result);
-            printf("\n");
-        } else {
-            printf("Invalid choice.\n");
-        }
-        
     }
 }
