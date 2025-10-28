@@ -203,3 +203,68 @@ void create_poly(polyptr head){
         printf("\n");
     }
 }
+
+int main(){
+    polyptr poly1 = init_poly();
+    polyptr poly2 = init_poly();
+    polyptr result = init_poly();
+
+    while(1){
+        printf("1. Insert term to polynomial 1\n");
+        printf("2. Insert term to polynomial 2\n");
+        printf("3. Print polynomial 1\n");
+        printf("4. Print polynomial 2\n");
+        printf("5. Add polynomials\n");
+        printf("6. Subtract polynomials\n");
+        printf("7. Multiply polynomials\n");
+        printf("8. Divide polynomials\n");
+        printf("9. Exit\n");
+        int choice;
+        scanf("%d", &choice);
+        if(choice == 9) break;
+        if(choice == 1){
+            create_poly(poly1);
+        } else if(choice == 2){
+            create_poly(poly2);
+        } else if(choice == 3){
+            print_poly(poly1);
+            printf("\n");
+        } else if(choice == 4){
+            print_poly(poly2);
+            printf("\n");
+        } else if(choice == 5){
+            free_poly(result);
+            result = init_poly();
+            add_poly(poly1, poly2, result);
+            print_poly(result);
+            printf("\n");
+        } else if(choice == 6){
+            free_poly(result);
+            result = init_poly();
+            sub_poly(poly1, poly2, result);
+            print_poly(result);
+            printf("\n");
+        } else if(choice == 7){
+            free_poly(result);
+            result = init_poly();
+            mul_poly(poly1, poly2, result);
+            print_poly(result);
+            printf("\n");
+        } else if(choice == 8){
+            free_poly(result);
+            result = init_poly();
+            polyptr remainder = init_poly();
+            div_poly(poly1, poly2, result, remainder);
+            printf("Quotient: ");
+            print_poly(result);
+            printf("\n");
+            printf("Remainder: ");
+            print_poly(remainder);
+            free_poly(remainder);
+            printf("\n");
+        } else {
+            printf("Invalid choice.\n");
+        }
+        
+    }
+}
