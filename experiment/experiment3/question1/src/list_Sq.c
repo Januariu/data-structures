@@ -1,13 +1,17 @@
 #include "list.h"
 
-#define INIT_SIZE 10      // 初始容量
-#define INCREMENT_SIZE 5  // 每次扩容的增量
+#define INIT_SIZE 10
+#define INCREMENT_SIZE 5
 
 typedef struct {
-    elemtype *data;   // 存储元素的数组
-    int length;       // 当前元素数量
-    int capacity;     // 当前数组容量
+    elemtype *data;
+    int length;
+    int capacity;
 } List;
+
+typedef elemtype* ElemPtr;
+
+// ============ 基本操作 ============
 
 // 初始化线性表
 ListPtr init_list() {
@@ -35,13 +39,22 @@ void free_list(ListPtr head) {
     }
 }
 
+// 动态调整线性表容量
+bool list_resize(List *list, int new_capacity) {
+    elemtype *new_data = (elemtype *)realloc(list->data, new_capacity * sizeof(elemtype));
+    if (!new_data) return false;
+    list->data = new_data;
+    list->capacity = new_capacity;
+    return true;
+}
+
 // 判断是否为空
 bool list_empty(ListPtr head) {
     List *list = (List *)head;
     return list->length == 0;
 }
 
-// 清空线性表但保留结构体
+// 清空线性表
 bool clear_list(ListPtr head) {
     List *list = (List *)head;
     if (!list) return false;
@@ -49,13 +62,13 @@ bool clear_list(ListPtr head) {
     return true;
 }
 
-// 返回长度
+// 求长度
 int list_length(ListPtr head) {
     List *list = (List *)head;
     return list->length;
 }
 
-// 获取第 index 个元素（从 0 开始）
+// 获取 index 位置的元素
 elemtype get_elem(ListPtr head, int index) {
     List *list = (List *)head;
     if (index < 0 || index >= list->length) {
@@ -65,82 +78,70 @@ elemtype get_elem(ListPtr head, int index) {
     return list->data[index];
 }
 
-// 查找元素位置，返回索引（没找到返回 -1）
+// 查找元素位置，返回第一个匹配元素的索引，未找到返回 -1
 int locate_elem(ListPtr head, elemtype e) {
     List *list = (List *)head;
-    for (int i = 0; i < list->length; i++) {
-        if (list->data[i] == e)
-            return i;
-    }
+    for (int i = 0; i < list->length; i++)
+        if (list->data[i] == e) return i;
     return -1;
 }
 
-// 返回前驱元素指针（若无则返回 NULL）
-ListPtr prior_elem(ListPtr head, elemtype cur_e) {
+// 获取元素的前驱
+ElemPtr prior_elem(ListPtr head, ElemPtr cur_e) {
     List *list = (List *)head;
-    int index = locate_elem(head, cur_e);
-    if (index <= 0)
-        return NULL;
-    return &list->data[index - 1];
+    if (!list || !cur_e || cur_e <= list->data) return NULL;
+    return cur_e - 1;
 }
 
-// 返回后继元素指针（若无则返回 NULL）
-ListPtr next_elem(ListPtr head, elemtype cur_e) {
+// 获取元素的后继
+ElemPtr next_elem(ListPtr head, ElemPtr cur_e) {
     List *list = (List *)head;
-    int index = locate_elem(head, cur_e);
-    if (index < 0 || index >= list->length - 1)
-        return NULL;
-    return &list->data[index + 1];
+    if (!list || !cur_e || cur_e >= list->data + list->length - 1) return NULL;
+    return cur_e + 1;
 }
 
-// 插入元素到 index 位置（从 0 开始）
+// 在 index 位置插入元素
 bool insert_elem(ListPtr head, int index, elemtype e) {
     List *list = (List *)head;
     if (index < 0 || index > list->length)
         return false;
-
-    // 扩容检查
-    if (list->length >= list->capacity) {
-        elemtype *new_data = (elemtype *)realloc(list->data, (list->capacity + INCREMENT_SIZE) * sizeof(elemtype));
-        if (!new_data)
+    if (list->length >= list->capacity)
+        if (!list_resize(list, list->capacity + INCREMENT_SIZE))
             return false;
-        list->data = new_data;
-        list->capacity += INCREMENT_SIZE;
-    }
 
-    // 元素右移
-    for (int i = list->length; i > index; i--) {
+    for (int i = list->length; i > index; i--)
         list->data[i] = list->data[i - 1];
-    }
 
-    // 插入新元素
     list->data[index] = e;
     list->length++;
     return true;
 }
 
-// 删除第 index 个元素
+// 删除 index 位置的元素
 bool delete_elem(ListPtr head, int index, elemtype *deleted_e) {
     List *list = (List *)head;
     if (index < 0 || index >= list->length)
         return false;
+    if (deleted_e) *deleted_e = list->data[index];
 
-    if (deleted_e)
-        *deleted_e = list->data[index];
-
-    // 元素左移
-    for (int i = index; i < list->length - 1; i++) {
+    for (int i = index; i < list->length - 1; i++)
         list->data[i] = list->data[i + 1];
-    }
 
     list->length--;
     return true;
 }
 
+// 在表尾添加元素
+void push_back(ListPtr head, elemtype e) {
+    List *list = (List *)head;
+    if (list->length >= list->capacity)
+        list_resize(list, list->capacity + INCREMENT_SIZE);
+    list->data[list->length++] = e;
+}
+
 // 遍历线性表
 void traverse_list(ListPtr head, void (*visit)(elemtype e)) {
     List *list = (List *)head;
-    for (int i = 0; i < list->length; i++) {
+    for (int i = 0; i < list->length; i++)
         visit(list->data[i]);
-    }
 }

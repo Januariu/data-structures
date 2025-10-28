@@ -4,6 +4,7 @@
         "iostream": "cpp",
         "limits.h": "c",
         "stdlib.h": "c",
-        "list.h": "c"
+        "list.h": "c",
+        "random": "c"
     }
 }
