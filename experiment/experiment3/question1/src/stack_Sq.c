@@ -38,8 +38,9 @@ void free_stack(stack s){
 bool push(stack s, elemtype e){
     SqStack stack = (SqStack)s;
     // if (stack->top >= MAX_SIZE) return false;
-    // stack->top++;
-    insert_elem(stack->list, stack->top++, e);
+    stack->top++;
+    // insert_elem(stack->list, stack->top++, e);
+    push_back(stack->list,e);
     return true;
 }
 

@@ -3,7 +3,7 @@
 typedef struct Node {
     elemtype data;
     struct Node* next;
-} Node, *NodePtr, *ElemPtr;
+} Node, *NodePtr;
 
 
 
@@ -104,7 +104,7 @@ ElemPtr prior_elem(ListPtr list, ElemPtr cur_e) {
 
 // 获取后继节点
 ElemPtr next_elem(ListPtr list, ElemPtr cur_e) {
-    return cur_e ? cur_e->next : NULL;
+    return cur_e ? ((NodePtr)cur_e)->next : NULL;
 }
 
 // 插入元素（在 index 处插入，0-based）

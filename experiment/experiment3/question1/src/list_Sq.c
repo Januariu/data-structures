@@ -9,7 +9,7 @@ typedef struct {
     int capacity;
 } List;
 
-typedef elemtype* ElemPtr;
+// typedef elemtype* ElemPtr;
 
 // ============ 基本操作 ============
 
@@ -89,14 +89,14 @@ int locate_elem(ListPtr head, elemtype e) {
 // 获取元素的前驱
 ElemPtr prior_elem(ListPtr head, ElemPtr cur_e) {
     List *list = (List *)head;
-    if (!list || !cur_e || cur_e <= list->data) return NULL;
+    if (!list || !cur_e || (elemtype *)cur_e <= list->data) return NULL;
     return cur_e - 1;
 }
 
 // 获取元素的后继
 ElemPtr next_elem(ListPtr head, ElemPtr cur_e) {
     List *list = (List *)head;
-    if (!list || !cur_e || cur_e >= list->data + list->length - 1) return NULL;
+    if (!list || !cur_e || (elemtype *)cur_e >= list->data + list->length - 1) return NULL;
     return cur_e + 1;
 }
 

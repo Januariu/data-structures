@@ -1,19 +1,26 @@
 #include "list.h"
 #include "stack.h"
+#include "queue.h"
 
-// void visit(elemtype e) {
-//         printf("%d ", e);
-// }
-// void print_stack(stack s) {
-//     traverse_stack(s, visit);
-//     printf("\n");
-// }
+void visit(elemtype e) {
+        printf("%c ", e);
+}
+void print_stack(stack s) {
+    traverse_stack(s, visit);
+    printf("\n");
+}
+void print_list(ListPtr L){
+    traverse_list(L, visit);
+    printf("\n");
+}
+
 void text_stack(){
     stack s = init_stack();
     elemtype value;
     push(s, 10);
     push(s, 20);
     push(s, 30);
+    // insert_elem(s)
     // traverse_stack(s, visit);
     printf("\n");
     value = get_top(s);
@@ -26,28 +33,33 @@ void text_stack(){
 
 void text_list(){
     ListPtr list = init_list();
-    insert_elem(list, 0, 10);
-    insert_elem(list, 1, 20);
-    insert_elem(list, 2, 20);
-    insert_elem(list, 3, 30);
     elemtype e;
-    e = get_elem(list, locate_elem(list, 20));
-    ListPtr prior = prior_elem(list, e);
-    ListPtr next = next_elem(list, e);
-    if (prior != NULL) {
-        printf("Prior element: %d\n", *(elemtype*)prior);
-    } else {
-        printf("No prior element.\n");
-    }
-    if (next != NULL) {
-        printf("Next element: %d\n", *(elemtype*)next);
-    } else {
-        printf("No next element.\n");
-    }
+    insert_elem(list, 0, 'c');
+    insert_elem(list, 1, 'y');
+    push_back(list, 'm');
+    push_back(list, 'c');
+    push_back(list, 'a');
+    delete_elem(list, 0, &e);
+    insert_elem(list, 0, 'o');
+    printf("%c\n",e);
+    print_list(list);
+    free_stack(list);
+}
+
+void text_queue(){
+    queue Q = init_queue();
+    enqueue(Q, 'a');
+    enqueue(Q, 'b');
+    printf("%c\n", dequeue(Q));
+    printf("%c\n",get_head(Q));
+    enqueue(Q, 'c');
+    printf("%c\n", dequeue(Q));
+    free_queue(Q);
 }
 
 int main() {
     // text_stack();
-    text_list();
+    // text_list();
+    text_queue();
     return 0;
 }

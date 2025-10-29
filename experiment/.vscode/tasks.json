@@ -9,6 +9,9 @@
                 "-fansi-escape-codes",
                 "-g",
                 "${file}",
+                // "-I", "${workspaceFolder}/include",
+                "-I", "${workspaceFolder}/experiment3/question1/include",
+                // "-I", "${workspaceFolder}/question2/include",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

@@ -4,9 +4,11 @@
             "name": "Mac",
             "includePath": [
                     "${workspaceFolder}/**",
-                    "${workspaceFolder}/include",
-                    "${workspaceFolder}/../**",
-                    "/Users/thn/Desktop/c/data structures/experiment/experiment3/question1/include"
+                    // "${workspaceFolder}/include",
+                    // // "${workspaceFolder}/../**",
+                    // 
+                    "experiment3/question1/include"
+                    // "/Users/thn/Desktop/c/data structures/experiment/experiment3/question1/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

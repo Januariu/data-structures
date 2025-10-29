@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef int elemtype;
+typedef char elemtype;
 typedef void* ListPtr;
 typedef void* ElemPtr;
 

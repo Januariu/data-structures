@@ -5,6 +5,12 @@
         "limits.h": "c",
         "stdlib.h": "c",
         "list.h": "c",
-        "random": "c"
+        "random": "c",
+        "queue": "c",
+        "cstdlib": "c",
+        "locale": "c",
+        "ostream": "c",
+        "new": "c",
+        "memory": "c"
     }
 }
