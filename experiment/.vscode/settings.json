@@ -11,6 +11,7 @@
         "locale": "c",
         "ostream": "c",
         "new": "c",
-        "memory": "c"
+        "memory": "c",
+        "string.h": "c"
     }
 }

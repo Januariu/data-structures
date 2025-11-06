@@ -7,7 +7,6 @@
 #define MAX_LEN 256
 #define MAX_TOKENS 128
 
-//================ 工具函数 ================
 int is_operator(char c) {
     return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
 }
@@ -23,7 +22,7 @@ int priority(char op) {
     }
 }
 
-//================ 栈实现 ================
+//================ char stack ================
 typedef struct {
     char data[MAX_LEN];
     int top;
@@ -35,7 +34,7 @@ char top_char(CharStack *s) { return s->data[s->top]; }
 void push_char(CharStack *s, char c) { s->data[++s->top] = c; }
 char pop_char(CharStack *s) { return s->data[s->top--]; }
 
-//================ 数字栈 ================
+//================ num stack ================
 typedef struct {
     double data[MAX_LEN];
     int top;
@@ -46,7 +45,7 @@ int empty_numstack(NumStack *s) { return s->top == -1; }
 void push_num(NumStack *s, double val) { s->data[++s->top] = val; }
 double pop_num(NumStack *s) { return s->data[s->top--]; }
 
-//================ 中缀 → 后缀 ================
+//================ infix tu postfix ================
 int infix_to_postfix(const char *expr, char output[][MAX_LEN]) {
     CharStack optr;
     init_charstack(&optr);
@@ -72,7 +71,7 @@ int infix_to_postfix(const char *expr, char output[][MAX_LEN]) {
             while (!empty_charstack(&optr) && top_char(&optr) != '(') {
                 sprintf(output[k++], "%c", pop_char(&optr));
             }
-            if (!empty_charstack(&optr)) pop_char(&optr); // 弹出 '('
+            if (!empty_charstack(&optr)) pop_char(&optr); // pop '('
             i++;
         }
         else if (is_operator(expr[i])) {
@@ -84,7 +83,7 @@ int infix_to_postfix(const char *expr, char output[][MAX_LEN]) {
             i++;
         }
         else {
-            printf("非法字符: %c\n", expr[i]);
+            printf("invalied char: %c\n", expr[i]);
             exit(1);
         }
     }
@@ -94,10 +93,10 @@ int infix_to_postfix(const char *expr, char output[][MAX_LEN]) {
     }
 
     output[k][0] = '\0';
-    return k; // 返回 token 数量
+    return k; // return token num
 }
 
-//================ 后缀求值 ================
+//================ postfix evaluation ================
 double operate(double a, char op, double b) {
     switch (op) {
         case '+': return a + b;
@@ -125,25 +124,25 @@ double eval_postfix(char postfix[][MAX_LEN]) {
     return pop_num(&s);
 }
 
-//================ 主函数 ================
+//================ main ================
 int main() {
     char expr[MAX_LEN];
     char postfix[MAX_TOKENS][MAX_LEN];
 
-    printf("请输入中缀表达式（例如 (3+5)*2-6/3 ）: ");
+    printf("please input infix expression:: ");
     fgets(expr, MAX_LEN, stdin);
-    expr[strcspn(expr, "\n")] = '\0'; // 去除换行
+    expr[strcspn(expr, "\n")] = '\0'; 
 
     int token_count = infix_to_postfix(expr, postfix);
 
-    printf("后缀表达式: ");
+    printf("postfix expression: ");
     for (int i = 0; i < token_count; i++) {
         printf("%s ", postfix[i]);
     }
     printf("\n");
 
     double result = eval_postfix(postfix);
-    printf("计算结果: %.2f\n", result);
+    printf("result: %.2f\n", result);
 
     return 0;
 }
