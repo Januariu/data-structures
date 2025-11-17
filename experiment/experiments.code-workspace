@@ -1,0 +1,41 @@
+{
+    // === 工作区包含的所有独立工程 ===
+    "folders": [
+        { "path": "experiment1" },
+        { "path": "experiment2" },
+        { "path": "experiment3/question1" },
+        { "path": "experiment3/question2" },
+        { "path": "experiment3/question3" },
+        { "path": "experiment4" },
+        { "path": "experiment4/Claude_gen" }
+    ],
+
+    // === 全局设置（对所有子工程生效）===
+    "settings": {
+        // ---- 文件类型识别 ----
+        "files.associations": {
+            "*.c": "c",
+            "*.h": "c",
+            "*.cpp": "cpp",
+            "*.hpp": "cpp"
+        },
+
+        // ---- 语言服务器 & 头文件补全 ----
+        "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+
+        // ---- 编辑器格式化 ----
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+
+        // ---- CMake 构建 ----
+        "cmake.generator": "Ninja",                          // Mac 推荐 Ninja
+        "cmake.configureOnOpen": true,
+        "cmake.useCMakePresets": "auto",
+        "cmake.buildDirectory": "${workspaceFolder}/build",  // 每个子项目自动在自己目录生成 build/
+
+        // ---- 终端配置 ----
+        "terminal.integrated.defaultProfile.osx": "zsh"
+    }
+}

@@ -7,22 +7,23 @@
         "*.hpp": "cpp"
     },
 
-    // === 让 VSCode 的 C/C++ 插件使用 CMake Tools 提供的配置 ===
+    // === 让 C/C++ 插件使用 CMake Tools 的配置 ===
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
 
-    // === 自动保存 & 格式化 ===
+    // === 格式化与缩进 ===
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "ms-vscode.cpptools",
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
 
-    // === CMake Tools ===
-    "cmake.generator": "Ninja",           // 或 "Unix Makefiles"，根据系统选择
+    // === CMake 构建设置 ===
+    "cmake.generator": "Ninja",
     "cmake.buildDirectory": "${workspaceFolder}/build",
     "cmake.configureOnOpen": true,
     "cmake.useCMakePresets": "auto",
+    "cmake.sourceDirectory": "${workspaceFolder}",
 
-    // === 终端设置（可选）===
-    "terminal.integrated.defaultProfile.linux": "bash",
-    "terminal.integrated.defaultProfile.osx": "zsh"
+    // === 终端（可根据系统修改） ===
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.defaultProfile.linux": "bash"
 }

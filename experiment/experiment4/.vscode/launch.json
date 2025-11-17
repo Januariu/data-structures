@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run experiment4",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/experiment4",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb"
+        },
+        {
+            "name": "Run Claude_gen",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Claude_gen/Claude_gen",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/Claude_gen",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb"
+        }
+    ]
+}
