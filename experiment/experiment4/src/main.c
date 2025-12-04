@@ -17,24 +17,22 @@ void menu_string()
 {
     String s = str_create();
     printf("\n===== String Menu =====\n");
-
+    printf("\n===== Operations =====\n");
+    printf("1. Create from C-string\n");
+    printf("2. Print string\n");
+    printf("3. Append C-string\n");
+    printf("4. Append char\n");
+    printf("5. Insert C-string\n");
+    printf("6. Insert char\n");
+    printf("7. Delete substring\n");
+    printf("8. Find substring\n");
+    printf("9. Replace first occurrence\n");
+    printf("10. Replace all occurrences\n");
+    printf("11. Clear string\n");
+    printf("12. Destroy and exit\n");
+    printf("Enter choice: ");
     while (1)
     {
-        printf("\n===== Operations =====\n");
-        printf("1. Create from C-string\n");
-        printf("2. Print string\n");
-        printf("3. Append C-string\n");
-        printf("4. Append char\n");
-        printf("5. Insert C-string\n");
-        printf("6. Insert char\n");
-        printf("7. Delete substring\n");
-        printf("8. Find substring\n");
-        printf("9. Replace first occurrence\n");
-        printf("10. Replace all occurrences\n");
-        printf("11. Clear string\n");
-        printf("12. Destroy and exit\n");
-        printf("Enter choice: ");
-
         int choice;
         scanf("%d", &choice);
 
@@ -53,7 +51,8 @@ void menu_string()
         case 1:
         {
             printf("Enter C-string: ");
-            scanf(" %255s", buffer);
+            // scanf(" %255s", buffer);
+            scanf(" %[^\n]", buffer);
             str_clear(s);
             String temp = str_create_from(buffer);
             str_append_str(s, temp);
@@ -185,6 +184,7 @@ void menu_string()
 
 int main()
 {
-    test_function();
+    // test_function();
+    menu_string();
     return 0;
 }

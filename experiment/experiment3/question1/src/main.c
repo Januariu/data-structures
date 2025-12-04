@@ -2,22 +2,27 @@
 #include "stack.h"
 #include "queue.h"
 
-void visit(elemtype e) {
-        printf("%c ", e);
+void visit(elemtype e)
+{
+    printf("%c ", e);
 }
-void print_stack(stack s) {
+void print_stack(stack s)
+{
     traverse_stack(s, visit);
     printf("\n");
 }
-void print_list(ListPtr L){
+void print_list(ListPtr L)
+{
     traverse_list(L, visit);
     printf("\n");
 }
-void print_queue(queue Q){
+void print_queue(queue Q)
+{
     queue_traverse(Q, visit);
 }
 
-void text_stack(){
+void text_stack()
+{
     stack s = init_stack();
     elemtype value;
     push(s, 10);
@@ -34,7 +39,8 @@ void text_stack(){
     free_stack(s);
 }
 
-void text_list(){
+void text_list()
+{
     ListPtr list = init_list();
     elemtype e;
     insert_elem(list, 0, 'c');
@@ -44,23 +50,25 @@ void text_list(){
     push_back(list, 'a');
     delete_elem(list, 0, &e);
     insert_elem(list, 0, 'o');
-    printf("%c\n",e);
+    printf("%c\n", e);
     print_list(list);
     free_stack(list);
 }
 
-void text_queue(){
+void text_queue()
+{
     queue Q = init_queue();
     enqueue(Q, 'a');
     enqueue(Q, 'b');
     printf("%c\n", dequeue(Q));
-    printf("%c\n",get_head(Q));
+    printf("%c\n", get_head(Q));
     enqueue(Q, 'c');
     printf("%c\n", dequeue(Q));
     free_queue(Q);
 }
 
-void menu_queue(){
+void menu_queue()
+{
     queue Q = init_queue();
     printf("\n===== Queue Menu =====\n");
     while (1)
@@ -75,35 +83,45 @@ void menu_queue(){
 
         switch (choice)
         {
-        case 1: {
+        case 1:
+        {
             printf("Enter the element to enqueue: ");
             char temp;
-            scanf(" %c", &temp);  // 前面有空格避免读入换行
+            scanf(" %c", &temp); // 前面有空格避免读入换行
             enqueue(Q, temp);
             printf("Enqueued: %c\n", temp);
         }
         break;
 
-        case 2: {
-            if(queue_empty(Q)){
+        case 2:
+        {
+            if (queue_empty(Q))
+            {
                 printf("Queue is empty!\n");
-            } else {
+            }
+            else
+            {
                 char val = dequeue(Q);
                 printf("Dequeued element is: %c\n", val);
             }
         }
         break;
 
-        case 3: {
-            if(queue_empty(Q)){
+        case 3:
+        {
+            if (queue_empty(Q))
+            {
                 printf("Queue is empty!\n");
-            } else {
+            }
+            else
+            {
                 printf("Front element is: %c\n", get_head(Q));
             }
         }
         break;
 
-        case 4: {
+        case 4:
+        {
             print_queue(Q);
             printf("\n");
         }
@@ -116,14 +134,15 @@ void menu_queue(){
         default:
             printf("Invalid choice\n");
         }
-
     }
 }
 
-void menu_stack() {
+void menu_stack()
+{
     stack S = init_stack();
     printf("\n===== Stack Menu =====\n");
-    while (1) {
+    while (1)
+    {
         printf("1. Push\n");
         printf("2. Pop\n");
         printf("3. View top element\n");
@@ -136,7 +155,8 @@ void menu_stack() {
 
         switch (choice)
         {
-        case 1: {
+        case 1:
+        {
             printf("Enter element to push: ");
             char temp;
             scanf(" %c", &temp); // 注意前置空格防止读取回车
@@ -145,10 +165,14 @@ void menu_stack() {
             break;
         }
 
-        case 2: {
-            if (stack_empty(S)) {
+        case 2:
+        {
+            if (stack_empty(S))
+            {
                 printf("Stack is empty, cannot pop.\n");
-            } else {
+            }
+            else
+            {
                 elemtype val;
                 pop(S, &val);
                 printf("Popped: %c\n", val);
@@ -156,16 +180,21 @@ void menu_stack() {
             break;
         }
 
-        case 3: {
-            if (stack_empty(S)) {
+        case 3:
+        {
+            if (stack_empty(S))
+            {
                 printf("Stack is empty.\n");
-            } else {
+            }
+            else
+            {
                 printf("Top element: %c\n", get_top(S));
             }
             break;
         }
 
-        case 4: {
+        case 4:
+        {
             printf("Stack elements (from bottom to top): ");
             print_stack(S);
             printf("\n");
@@ -182,8 +211,8 @@ void menu_stack() {
     }
 }
 
-
-int main() {
+int main()
+{
     // text_stack();
     // text_list();
     // text_queue();
@@ -193,10 +222,13 @@ int main() {
     printf("2.queue\n");
 
     int choice;
-    scanf("%d",&choice);
-    if(choice == 1) menu_stack();
-    else if(choice == 2) menu_queue();
-    else printf("invalid choice");
-    
+    scanf("%d", &choice);
+    if (choice == 1)
+        menu_stack();
+    else if (choice == 2)
+        menu_queue();
+    else
+        printf("invalid choice");
+
     return 0;
 }
